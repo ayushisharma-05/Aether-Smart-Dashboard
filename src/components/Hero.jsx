@@ -1,11 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useAura } from '../context/AuraContext';
+import { useTranslation } from 'react-i18next';
 
 import heroVisual from '../assets/hero_visual.png';
 
 const Hero = () => {
   const { speak, stop } = useAura();
+  const { t } = useTranslation();
 
   return (
     <section 
@@ -24,30 +26,30 @@ const Hero = () => {
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         <h1 
-          style={{ fontSize: '5rem', lineHeight: '1', marginBottom: '2rem' }}
+          style={{ fontSize: '3.5rem', lineHeight: '1.2', marginBottom: '1.5rem' }}
           onMouseEnter={(e) => speak(e.target.innerText)}
           onMouseLeave={stop}
         >
-          Luxury <br /> Defines <span className="gold-accent">Aether</span>
+          {t('hero.luxury')} <br /> {t('hero.defines')} <span className="gold-accent">{t('hero.aether')}</span>
         </h1>
         <p 
           style={{ 
-            fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '500px', lineHeight: '1.8',
-            marginBottom: '3rem'
+            fontSize: '1.1rem', color: 'var(--text-secondary)', maxWidth: '540px', lineHeight: '1.6',
+            marginBottom: '2.5rem'
           }}
           onMouseEnter={(e) => speak(e.target.innerText)}
           onMouseLeave={stop}
         >
-          Elegance is not about being noticed, it's about being remembered. Welcome to the most exquisite dashboard experience ever crafted.
+          {t('hero.tagline')}
         </p>
         <motion.button 
           className="btn-primary"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onMouseEnter={() => speak("Discover the Collection")}
+          onMouseEnter={() => speak(t('hero.cta'))}
           onMouseLeave={stop}
         >
-          Discover the Collection
+          {t('hero.cta')}
         </motion.button>
       </motion.div>
 

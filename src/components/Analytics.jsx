@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { useAura } from '../context/AuraContext';
+import { useTranslation } from 'react-i18next';
 import { TrendingUp, Award, Zap } from 'lucide-react';
 
 const data = [
@@ -53,16 +54,17 @@ const AnalyticsCard = ({ title, value, icon: Icon, chart: ChartComponent }) => {
 
 const Analytics = () => {
   const { speak, stop } = useAura();
+  const { t } = useTranslation();
   
   return (
     <section style={{ padding: '0 5% 100px' }}>
       <div style={{ marginBottom: '4rem', textAlign: 'center' }}>
         <h2 
-          style={{ fontSize: '3rem', marginBottom: '1rem' }}
+          style={{ fontSize: '2.4rem', marginBottom: '1rem' }}
           onMouseEnter={(e) => speak(e.target.innerText)}
           onMouseLeave={stop}
         >
-          Live Analytics
+          {t('analytics.title')}
         </h2>
         <div 
           style={{ width: '60px', height: '2px', background: 'var(--accent-gold)', margin: '0 auto' }}
@@ -70,9 +72,9 @@ const Analytics = () => {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-        <AnalyticsCard title="Global Reach" value="1.2M+" icon={TrendingUp} />
-        <AnalyticsCard title="Brand Value" value="$850K" icon={Award} />
-        <AnalyticsCard title="Engagement" value="94.2%" icon={Zap} />
+        <AnalyticsCard title={t('analytics.globalReach')} value="1.2M+" icon={TrendingUp} />
+        <AnalyticsCard title={t('analytics.brandValue')} value="$850K" icon={Award} />
+        <AnalyticsCard title={t('analytics.engagement')} value="94.2%" icon={Zap} />
       </div>
     </section>
   );

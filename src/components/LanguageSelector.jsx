@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Globe, ChevronDown, Search, X, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 // Full list of 100+ languages supported by Google Translate
 const LANGUAGES = [
@@ -178,14 +179,11 @@ const REGION_EMOJIS = {
 };
 
 const LanguageSelector = () => {
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   
-  // Initialize from Google Translate cookie if available
-  const [selectedLang, setSelectedLang] = useState(() => {
-    const match = document.cookie.match(/googtrans=\/en\/([^;]+)/);
-    return match ? match[1] : 'en';
-  });
+  const selectedLang = i18n.language || 'en';
   
   const [activeRegion, setActiveRegion] = useState(null);
   const dropdownRef = useRef(null);
@@ -236,17 +234,32 @@ const LanguageSelector = () => {
   const currentLang = LANGUAGES.find((l) => l.code === selectedLang) || LANGUAGES[0];
   const totalLanguages = LANGUAGES.length;
 
-  // Trigger Google Translate by manipulating the hidden select element
   const handleLanguageSelect = (langCode) => {
-    setSelectedLang(langCode);
+    const NATIVE_LANGS = ['en', 'hi', 'es', 'bn', 'mr']; // Languages we have curated translations for
+    
     setIsOpen(false);
     setSearchQuery('');
 
-    // Trigger Google Translate widget
-    const translateSelect = document.querySelector('.goog-te-combo');
-    if (translateSelect) {
-      translateSelect.value = langCode;
-      translateSelect.dispatchEvent(new Event('change'));
+    if (NATIVE_LANGS.includes(langCode)) {
+      // Use premium i18next translations
+      i18n.changeLanguage(langCode);
+      
+      // Reset Google Translate if it was active
+      const translateSelect = document.querySelector('.goog-te-combo');
+      if (translateSelect && translateSelect.value !== '') {
+        translateSelect.value = '';
+        translateSelect.dispatchEvent(new Event('change'));
+      }
+    } else {
+      // Use Google Translate for the 150+ other languages
+      // First reset i18next to English so Google has a base to translate from
+      i18n.changeLanguage('en');
+      
+      const translateSelect = document.querySelector('.goog-te-combo');
+      if (translateSelect) {
+        translateSelect.value = langCode;
+        translateSelect.dispatchEvent(new Event('change'));
+      }
     }
   };
 
@@ -316,7 +329,7 @@ const LanguageSelector = () => {
             {/* Header */}
             <div
               style={{
-                padding: '1.25rem 1.5rem 0.75rem',
+                padding: '1.25rem 1.5rem 1rem',
                 borderBottom: '1px solid var(--glass-border)',
               }}
             >
@@ -332,13 +345,13 @@ const LanguageSelector = () => {
                   <h3
                     className="serif"
                     style={{
-                      fontSize: '1.2rem',
+                      fontSize: '1rem',
                       color: 'var(--text-primary)',
                       fontWeight: 600,
                       margin: 0,
                     }}
                   >
-                    Select Language
+                    {t('nav.selectLanguage')}
                   </h3>
                   <p
                     style={{
@@ -349,7 +362,7 @@ const LanguageSelector = () => {
                       letterSpacing: '1.5px',
                     }}
                   >
-                    {totalLanguages} languages available
+                    {totalLanguages} {t('nav.languagesAvailable')}
                   </p>
                 </div>
                 <motion.button
@@ -377,7 +390,7 @@ const LanguageSelector = () => {
               <div
                 style={{
                   position: 'relative',
-                  marginBottom: '0.5rem',
+                  marginBottom: '1rem',
                 }}
               >
                 <Search
@@ -454,12 +467,15 @@ const LanguageSelector = () => {
               <div
                 style={{
                   display: 'flex',
-                  gap: '4px',
-                  padding: '0.6rem 1rem',
+                  gap: '8px',
+                  padding: '16px 16px 12px',
                   overflowX: 'auto',
+                  flexShrink: 0,
                   borderBottom: '1px solid var(--glass-border)',
+                  background: 'rgba(255, 255, 255, 0.6)',
                   scrollbarWidth: 'none',
                   msOverflowStyle: 'none',
+                  alignItems: 'center',
                 }}
               >
                 <button
@@ -469,17 +485,18 @@ const LanguageSelector = () => {
                     color: !activeRegion ? 'white' : 'var(--text-secondary)',
                     border: 'none',
                     borderRadius: '20px',
-                    padding: '4px 12px',
-                    fontSize: '0.7rem',
+                    padding: '6px 14px',
+                    fontSize: '0.75rem',
                     fontFamily: 'var(--font-sans)',
                     cursor: 'pointer',
                     whiteSpace: 'nowrap',
                     letterSpacing: '0.5px',
                     fontWeight: 500,
+                    lineHeight: '1.2',
                     transition: 'all 0.2s ease',
                   }}
                 >
-                  All
+                  {t('nav.all')}
                 </button>
                 {REGION_ORDER.filter((r) => groupedLanguages[r]).map((region) => (
                   <button
@@ -490,13 +507,14 @@ const LanguageSelector = () => {
                       color: activeRegion === region ? 'white' : 'var(--text-secondary)',
                       border: 'none',
                       borderRadius: '20px',
-                      padding: '4px 12px',
-                      fontSize: '0.7rem',
+                      padding: '6px 14px',
+                      fontSize: '0.75rem',
                       fontFamily: 'var(--font-sans)',
                       cursor: 'pointer',
                       whiteSpace: 'nowrap',
                       letterSpacing: '0.5px',
                       fontWeight: 500,
+                      lineHeight: '1.2',
                       transition: 'all 0.2s ease',
                     }}
                   >
@@ -646,7 +664,7 @@ const LanguageSelector = () => {
               }}
             >
               <span style={{ letterSpacing: '0.5px' }}>
-                Powered by Google Translate
+                {t('hero.luxury')} Dashboard
               </span>
               <span
                 style={{
