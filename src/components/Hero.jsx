@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useAura } from '../context/AuraContext';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import heroVisual from '../assets/hero_visual.png';
 
@@ -42,15 +43,17 @@ const Hero = () => {
         >
           {t('hero.tagline')}
         </p>
-        <motion.button 
-          className="btn-primary"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onMouseEnter={() => speak(t('hero.cta'))}
-          onMouseLeave={stop}
-        >
-          {t('hero.cta')}
-        </motion.button>
+        <Link to="/collection">
+          <motion.button 
+            className="btn-primary"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onMouseEnter={() => speak(t('hero.cta'))}
+            onMouseLeave={stop}
+          >
+            {t('hero.cta')}
+          </motion.button>
+        </Link>
       </motion.div>
 
       <motion.div

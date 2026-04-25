@@ -25,6 +25,23 @@ const resources = {
         brandValue: 'Brand Value',
         engagement: 'Engagement'
       },
+      collection: {
+        title: 'The Collection',
+        ring: 'Royal Ring',
+        necklace: 'Diamond Necklace',
+        earrings: 'Gold Earrings',
+        anklet: 'Silver Anklet',
+        tiara: 'Diamond Tiara',
+        bracelet: 'Gold Bracelet',
+        pendant: 'Sapphire Pendant',
+        addToCart: 'Add to Cart'
+      },
+      cart: {
+        title: 'Shopping Bag',
+        total: 'Total',
+        checkout: 'Secure Checkout',
+        empty: 'Your bag is empty'
+      },
       footer: {
         rights: 'All Rights Reserved.'
       }
@@ -51,6 +68,23 @@ const resources = {
         brandValue: 'ब्रांड मूल्य',
         engagement: 'भागीदारी'
       },
+      collection: {
+        title: 'संग्रह',
+        ring: 'शाही अंगूठी',
+        necklace: 'हीरे का हार',
+        earrings: 'सोने की बालियां',
+        anklet: 'चांदी की पायल',
+        tiara: 'हीरे का मुकुट',
+        bracelet: 'सोने का कंगन',
+        pendant: 'नीलम का लॉकेट',
+        addToCart: 'कार्ट में जोड़ें'
+      },
+      cart: {
+        title: 'शॉपिंग बैग',
+        total: 'कुल',
+        checkout: 'सुरक्षित चेकआउट',
+        empty: 'आपका बैग खाली है'
+      },
       footer: {
         rights: 'सर्वाधिकार सुरक्षित।'
       }
@@ -76,6 +110,23 @@ const resources = {
         globalReach: 'Alcance Global',
         brandValue: 'Valor de Marca',
         engagement: 'Compromiso'
+      },
+      collection: {
+        title: 'La Colección',
+        ring: 'Anillo Real',
+        necklace: 'Collar de Diamantes',
+        earrings: 'Pendientes de Oro',
+        anklet: 'Tobillera de Plata',
+        tiara: 'Tiara de Diamantes',
+        bracelet: 'Brazalete de Oro',
+        pendant: 'Colgante de Zafiro',
+        addToCart: 'Añadir al Carrito'
+      },
+      cart: {
+        title: 'Bolsa de Compras',
+        total: 'Total',
+        checkout: 'Pago Seguro',
+        empty: 'Tu bolsa está vacía'
       },
       footer: {
         rights: 'Todos los derechos reservados.'
