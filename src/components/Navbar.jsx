@@ -3,7 +3,7 @@ import { useAura } from '../context/AuraContext';
 import { useCart } from '../context/CartContext';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Volume2, VolumeX, ShoppingBag } from 'lucide-react';
+import { Volume2, VolumeX, ShoppingBag, Camera } from 'lucide-react';
 import LanguageSelector from './LanguageSelector';
 import { motion } from 'framer-motion';
 
@@ -11,6 +11,13 @@ const Navbar = () => {
   const { isAuraEnabled, setIsAuraEnabled } = useAura();
   const { totalItems, setIsCartOpen } = useCart();
   const { t } = useTranslation();
+
+  const handleImageSearch = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      alert(`Visual Search Initiated for: ${file.name}\n(Mock functionality - would integrate with AI backend)`);
+    }
+  };
 
   return (
     <nav className="nav-glass">
@@ -50,6 +57,28 @@ const Navbar = () => {
             </motion.span>
           )}
         </button>
+
+        {/* Visual Search */}
+        <div style={{ position: 'relative' }}>
+          <input 
+            type="file" 
+            accept="image/*" 
+            id="visual-search-upload" 
+            style={{ display: 'none' }}
+            onChange={handleImageSearch}
+          />
+          <button 
+            onClick={() => document.getElementById('visual-search-upload').click()}
+            style={{ 
+              background: 'var(--glass-border)', border: 'none', cursor: 'pointer', padding: '8px', borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'all 0.3s ease', color: 'var(--text-secondary)'
+            }}
+            title={t('nav.visualSearch') || "Search by Image"}
+          >
+            <Camera size={20} />
+          </button>
+        </div>
 
         {/* Aura-Reader Toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
