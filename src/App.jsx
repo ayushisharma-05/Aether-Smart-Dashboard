@@ -8,6 +8,7 @@ import Hero from './components/Hero';
 import Analytics from './components/Analytics';
 import Collection from './components/Collection';
 import CartDrawer from './components/CartDrawer';
+import Checkout from './components/Checkout';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 
 const ScrollToTop = () => {
@@ -103,6 +104,7 @@ const MainApp = () => {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/collection" element={<Collection />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
 
       {/* Parallax Background */}
