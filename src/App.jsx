@@ -18,9 +18,52 @@ const ScrollToTop = () => {
   return null;
 };
 
+const AestheticsGallery = () => {
+  const images = [
+    'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=80',
+    'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80',
+    'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&q=80',
+    'https://images.unsplash.com/photo-1535633302704-b02f41af8345?w=600&q=80'
+  ];
+  return (
+    <section style={{ padding: '4rem 5% 6rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        <h2 className="serif" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Elegance in Detail</h2>
+        <div style={{ width: '60px', height: '2px', background: 'var(--accent-gold)', margin: '0 auto' }} />
+      </div>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        gap: '2rem'
+      }}>
+        {images.map((src, idx) => (
+          <motion.div 
+            key={idx}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.15 }}
+            whileHover={{ y: -10 }}
+            style={{
+              aspectRatio: idx % 2 === 0 ? '3/4' : '4/5',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              boxShadow: 'var(--shadow-soft)',
+              background: 'var(--accent-gold-soft)'
+            }}
+          >
+            <img src={src} alt="Aesthetic Jewelry" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
 const Dashboard = () => (
   <>
     <Hero />
+    <AestheticsGallery />
     <Analytics />
   </>
 );
