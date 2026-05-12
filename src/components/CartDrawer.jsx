@@ -3,12 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ShoppingBag, Plus, Minus, Trash2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 const CartDrawer = () => {
   const { cartItems, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, totalCost } = useCart();
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   return (
     <AnimatePresence>
@@ -105,14 +103,7 @@ const CartDrawer = () => {
                   <span style={{ color: 'var(--text-secondary)' }}>{t('cart.total')}</span>
                   <span style={{ fontSize: '1.25rem', fontWeight: 600 }} className="gold-accent">${totalCost}</span>
                 </div>
-                <button 
-                  className="btn-primary" 
-                  style={{ width: '100%', padding: '15px' }}
-                  onClick={() => {
-                    setIsCartOpen(false);
-                    navigate('/checkout');
-                  }}
-                >
+                <button className="btn-primary" style={{ width: '100%', padding: '15px' }}>
                   {t('cart.checkout')}
                 </button>
               </div>
